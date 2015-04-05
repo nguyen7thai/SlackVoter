@@ -1,0 +1,7 @@
+h2 Surveys list
+ul
+  - @surveys.each do |survey|
+    ul= survey.title
+
+h3
+  = link_to 'New survey', new_survey_path

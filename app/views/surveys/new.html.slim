@@ -1,0 +1,43 @@
+= form_for @survey do |f|
+  table
+    tr
+      td
+        = f.label :title
+      td
+        = f.text_field :title
+    tr
+      td= f.label :description
+      td= f.text_area :description
+
+    tr
+      td= f.label :url
+      td= f.text_field :url
+
+    tr
+      td= label_tag :options, 'Yes'
+      td= text_field_tag 'survey[options][][text]'
+      td= text_field_tag 'survey[options][][tag]'
+    tr
+      td= label_tag :options, 'No'
+      td= text_field_tag 'survey[options][][text]'
+      td= text_field_tag 'survey[options][][tag]'
+  p
+    button#submit Submit
+
+javascript:
+  $(document).ready(function() {
+    $('#submit').on('click', function() {
+      $.ajax({
+        url: '/api/v1/surveys',
+        method: 'POST',
+        data: $('#new_survey').serialize(),
+        success: function() {
+          window.location.href = '/'
+        },
+        error: function() {
+          alert('error')
+        }
+      });
+      return false;
+    });
+  });
