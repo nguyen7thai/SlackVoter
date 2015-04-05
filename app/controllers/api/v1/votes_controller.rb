@@ -1,7 +1,7 @@
 class Api::V1::VotesController < ApplicationController
   def create
     if survey.votes.exists?(slack_user_name: params[:user_name])
-      render json: { status: :ok, text: "Not Accepted. You've already made a choice!!!" }
+      render json: { status: :ok, text: "Not Accepted, #{params[:user_name]}. You've already made a choice!!!" }
       return
     end
 
@@ -38,7 +38,7 @@ class Api::V1::VotesController < ApplicationController
   end
 
   def survey
-    @survey ||= Survey.find_by(slack_service_id: params[:service_id])
+    @survey ||= Survey.find_by(slack_channel_id: params[:channel_id])
   end
 
 end
