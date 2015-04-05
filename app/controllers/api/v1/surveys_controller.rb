@@ -18,6 +18,7 @@ class Api::V1::SurveysController < ApplicationController
       :title,
       :description,
       :url,
+      :slack_service_id,
       options: [[:text, :tag]]
     )
   end

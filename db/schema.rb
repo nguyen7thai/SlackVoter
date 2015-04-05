@@ -11,7 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150405031311) do
+ActiveRecord::Schema.define(version: 20150405122333) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "surveys", force: :cascade do |t|
     t.string   "title"
@@ -19,9 +22,12 @@ ActiveRecord::Schema.define(version: 20150405031311) do
     t.text     "options"
     t.string   "type"
     t.text     "url"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.string   "slack_service_id"
   end
+
+  add_index "surveys", ["slack_service_id"], name: "index_surveys_on_slack_service_id", using: :btree
 
   create_table "votes", force: :cascade do |t|
     t.string   "slack_user_name"
@@ -31,6 +37,6 @@ ActiveRecord::Schema.define(version: 20150405031311) do
     t.integer  "survey_id"
   end
 
-  add_index "votes", ["survey_id"], name: "index_votes_on_survey_id"
+  add_index "votes", ["survey_id"], name: "index_votes_on_survey_id", using: :btree
 
 end

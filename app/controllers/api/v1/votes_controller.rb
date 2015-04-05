@@ -38,7 +38,7 @@ class Api::V1::VotesController < ApplicationController
   end
 
   def survey
-    @survey ||= Survey.last
+    @survey ||= Survey.find_by(slack_service_id: params[:service_id])
   end
 
 end
